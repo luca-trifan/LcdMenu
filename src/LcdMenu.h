@@ -528,6 +528,16 @@ class LcdMenu {
                     // blinker will be drawn
                     drawCursor();
                 }
+                else {
+                  // Disable edit mode
+                    isEditModeEnabled = false;
+                    update();
+                    // Execute callback function
+                    if (item->getCallbackStr() != NULL)
+                        (item->getCallbackStr())(item->getValue());
+                    // Interrupt going back to parent menu
+                    return;
+                }
                 break;
             }
 #endif
@@ -562,10 +572,6 @@ class LcdMenu {
                     // Disable edit mode
                     isEditModeEnabled = false;
                     update();
-                    // Execute callback function
-                    if (item->getCallbackStr() != NULL)
-                        (item->getCallbackStr())(item->getValue());
-                    // Interrupt going back to parent menu
                     return;
 #endif
 #if defined(ItemProgress_H) || defined(ItemList_H)
